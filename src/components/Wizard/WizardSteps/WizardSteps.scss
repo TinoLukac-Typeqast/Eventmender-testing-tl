@@ -1,0 +1,28 @@
+.wizardSteps-num{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #b3b3b3;
+    color: white;
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    padding: 10px ;
+    margin: 20px 0;
+    
+    cursor: pointer;
+    transition: background-color 0.3s ease-in
+}
+
+.round{
+    border: 2px #2331ff solid;
+    border-radius: 50%;
+}
+
+.wizardSteps{
+    margin-top: 20px
+}
+
+.fill{
+    background-color: #2331ff;
+}
