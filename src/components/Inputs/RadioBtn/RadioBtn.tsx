@@ -3,8 +3,10 @@ import "./RadioBtn.scss";
 
 const RadioBtn = ({
   option,
+  queryQuestions,
   checkedOption,
   handleCheckedOption,
+  inputValue,
 }: IRadioBtn) => {
   return (
     <label htmlFor={option} className="radioBtn">
@@ -23,8 +25,10 @@ const RadioBtn = ({
 
 interface IRadioBtn {
   option: string;
+  queryQuestions: any;
   checkedOption: string;
   handleCheckedOption: any;
+  inputValue: any;
 }
 
 export default RadioBtn;

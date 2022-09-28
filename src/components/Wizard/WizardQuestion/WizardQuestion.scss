@@ -4,54 +4,6 @@
     padding-left: 20%;
     flex: 60%;
 
-    &-form{
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-
-        &--name{
-            color: #b3b3b3;
-        }
-
-        &--btn{
-            background-color: #2331ff;
-            color: white;
-            border: none;
-            padding: 10px 25px ;
-            align-self: flex-end;
-
-        }
-
-        &--radio{
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            color: #222222;
-            padding-bottom: 20px;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #b3b3b3;
-        }
-
-        &--number{
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            color: #222222;
-            padding-bottom: 20px;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #b3b3b3;
-
-
-            input{
-                border: 1px solid #3d4afa;
-                outline: 1px solid #3d4afa;
-                padding: 10px;
-                font-weight: 600;
-            }
-
-        }
-    }
+    
 
 }

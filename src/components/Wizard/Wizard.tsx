@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { QuestionsConstants } from "../../constants/questions.constants";
 import "./Wizard.scss";
 import WizardQuestion from "./WizardQuestion/WizardQuestion";
@@ -10,12 +10,8 @@ const Wizard = () => {
   const [queryQuestions, setQueryQuestions] = useState<any>({});
 
   const nextNumberHandler = () => {
-    if (QuestionsConstants.length - 1 > questionNumber) {
+    if (QuestionsConstants.length > questionNumber) {
       setQuestionNumber((prevState) => prevState + 1);
-    }
-
-    if (QuestionsConstants.length - 1 === questionNumber) {
-      console.log(queryQuestions);
     }
   };
 
@@ -23,11 +19,20 @@ const Wizard = () => {
     setQuestionNumber(stepNumber);
   };
 
-  const queryQuestionsHandler = (query: any) => {
-    setQueryQuestions((prevState: any) => ({
-      ...prevState,
-      ...query,
-    }));
+  const queryQuestionsHandler = (query: object | string) => {
+    if (typeof query === "object") {
+      setQueryQuestions((prevState: any) => ({
+        ...prevState,
+        ...query,
+      }));
+    }
+
+    if (typeof query === "string") {
+      const deletedItemArray = queryQuestions;
+      delete deletedItemArray[query];
+
+      setQueryQuestions(deletedItemArray);
+    }
   };
 
   return (
@@ -37,12 +42,18 @@ const Wizard = () => {
         questionNumber={questionNumber}
         stepNumberHandler={stepNumberHandler}
       ></WizardSteps>
-      <WizardQuestion
-        question={QuestionsConstants[questionNumber]}
-        queryQuestions={queryQuestions}
-        queryQuestionsHandler={queryQuestionsHandler}
-        questionNumberHandler={nextNumberHandler}
-      ></WizardQuestion>
+      {questionNumber <= QuestionsConstants.length - 1 && (
+        <WizardQuestion
+          question={QuestionsConstants[questionNumber]}
+          queryQuestions={queryQuestions}
+          queryQuestionsHandler={queryQuestionsHandler}
+          questionNumberHandler={nextNumberHandler}
+        ></WizardQuestion>
+      )}
+
+      {questionNumber > QuestionsConstants.length - 1 && (
+        <div> results: {JSON.stringify(queryQuestions)}</div>
+      )}
     </div>
   );
 };
