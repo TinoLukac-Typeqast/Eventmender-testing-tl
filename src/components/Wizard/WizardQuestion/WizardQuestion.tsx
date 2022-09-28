@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import WizardForm from "../../CustomForms/WizardForm/WizardForm";
 import NumberInput from "../../Inputs/NumberInput/NumberInput";
 import RadioBtn from "../../Inputs/RadioBtn/RadioBtn";
 import "./WizardQuestion.scss";
@@ -11,62 +12,63 @@ const WizardQuestion = ({
 }: IWizardQuestion) => {
   const [checkedOption, setOptionChecked] = useState("");
 
+  const [inputValue, setInputValue] = useState("");
+
   const handleCheckedOption = (option: string) => {
     setOptionChecked(option);
-  };
-
-  const testHandler = (e: any) => {
-    queryQuestionsHandler({ [question.name]: e.target.value });
   };
 
   useEffect(() => {
     if (queryQuestions[question.name]) {
       setOptionChecked(queryQuestions[question.name]);
-      console.log(true);
+      setInputValue(queryQuestions[question.name]);
+    }
+
+    if (Object.keys(queryQuestions).includes(question.name)) {
+      setOptionChecked(queryQuestions[question.name]);
+    } else {
+      setOptionChecked("");
+      setInputValue("");
     }
   }, [question]);
 
   return (
     <div className="wizardQuestion">
-      <form
-        className="wizardQuestion-form"
-        action=""
-        onChange={testHandler}
-        onSubmit={(e) => e.preventDefault()}
-      >
-        <p className="wizardQuestion-form--name">{question.name}</p>
-        <h2 className="wizardQuestion-form--question">{question.question}</h2>
-
-        {question.type === "input-options" && (
-          <div className="wizardQuestion-form--radio">
-            {question.options?.map((test) => (
-              <RadioBtn
-                key={test}
-                option={test}
-                checkedOption={checkedOption}
-                handleCheckedOption={handleCheckedOption}
-              ></RadioBtn>
-            ))}
-          </div>
-        )}
-
-        {question.type === "input-number" && (
-          <div className="wizardQuestion-form--number">
-            <NumberInput
-              userValue={queryQuestions[question.name] || false}
-              name={question.placeholder}
-              currency={question.currency}
-            ></NumberInput>
-          </div>
-        )}
-
-        <button
-          className="wizardQuestion-form--btn"
-          onClick={questionNumberHandler}
+      {question.type === "input-options" && (
+        <WizardForm
+          inputValue={checkedOption}
+          question={question}
+          queryQuestionsHandler={queryQuestionsHandler}
+          questionNumberHandler={questionNumberHandler}
         >
-          Next
-        </button>
-      </form>
+          {question.options?.map((test) => (
+            <RadioBtn
+              key={test}
+              option={test}
+              queryQuestions={queryQuestions}
+              checkedOption={checkedOption}
+              inputValue={setInputValue}
+              handleCheckedOption={handleCheckedOption}
+            ></RadioBtn>
+          ))}
+        </WizardForm>
+      )}
+
+      {question.type === "input-number" && (
+        <WizardForm
+          inputValue={inputValue}
+          question={question}
+          queryQuestionsHandler={queryQuestionsHandler}
+          questionNumberHandler={questionNumberHandler}
+        >
+          <NumberInput
+            inputValue={setInputValue}
+            userValue={queryQuestions[question.name] || false}
+            name={question.placeholder}
+            currency={question.currency}
+          ></NumberInput>
+        </WizardForm>
+      )}
     </div>
   );
 };
