@@ -1,5 +1,7 @@
 .wizardSteps-num{
     display: flex;
+    position: relative;
+
     justify-content: center;
     align-items: center;
     background-color: #b3b3b3;
@@ -8,21 +10,54 @@
     width: 15px;
     height: 15px;
     padding: 10px ;
-    margin: 20px 0;
-    
+    margin: 40px 0;
     cursor: pointer;
     transition: background-color 0.3s ease-in
+
+    
+
 }
 
+.wizardSteps-num:not(:last-child)::after{
+    content: "";
+    position: absolute;
+    top: 100%;
+    margin: 0 auto;
+    width: 3px;
+    height: 50px;
+    z-index: -2;
+    background-color: #b3b3b3;
+}
+
+
 .round{
-    border: 2px #2331ff solid;
+    background-color: #b3b3b3;
+}
+
+.round::before{
+    content: "";
+    position: absolute;
+    z-index: -1;
+    background-color: white;
+    width: 17px;
+    height: 17px;
+    padding: 12px;
+    border: 3px #2331ff solid;
     border-radius: 50%;
+
 }
 
 .wizardSteps{
-    margin-top: 20px
+    position: relative;
+    margin-top: 20px;
+    z-index: 0;
+    
 }
 
 .fill{
+    background-color: #2331ff;
+}
+
+.fill:not(:last-child)::after{
     background-color: #2331ff;
 }

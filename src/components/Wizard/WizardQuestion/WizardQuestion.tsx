@@ -30,7 +30,10 @@ const WizardQuestion = ({
       setOptionChecked("");
       setInputValue("");
     }
-  }, [question]);
+  }, [question, queryQuestions]);
+
+  console.log(queryQuestions);
+  console.log(checkedOption);
 
   return (
     <div className="wizardQuestion">
