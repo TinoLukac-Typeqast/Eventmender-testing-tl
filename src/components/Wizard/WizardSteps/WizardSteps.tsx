@@ -10,9 +10,9 @@ const WizardSteps = ({
     <div className="wizardSteps">
       {QuestionsConstants.map((question, i) => (
         <>
-          <div>
+          {/* <div>
             <p>{question.name}</p>
-          </div>
+          </div> */}
           <div
             key={i}
             className={`wizardSteps-num ${questionNumber === i && "round"} ${

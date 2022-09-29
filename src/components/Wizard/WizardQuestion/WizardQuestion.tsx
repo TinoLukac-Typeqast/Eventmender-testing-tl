@@ -32,9 +32,6 @@ const WizardQuestion = ({
     }
   }, [question, queryQuestions]);
 
-  console.log(queryQuestions);
-  console.log(checkedOption);
-
   return (
     <div className="wizardQuestion">
       {question.type === "input-options" && (
