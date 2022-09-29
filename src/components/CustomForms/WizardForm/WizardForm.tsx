@@ -14,10 +14,7 @@ const WizardForm = ({
   const testHandler = (e: any) => {
     e.preventDefault();
 
-    if (
-      question.type === "input-options" &&
-      question.options.includes(inputValue)
-    ) {
+    if (question.type === "input-options") {
       queryQuestionsHandler(
         isQuestionSkipped ? question.name : { [question.name]: inputValue }
       );
@@ -27,6 +24,10 @@ const WizardForm = ({
       queryQuestionsHandler(
         isQuestionSkipped ? question.name : { [question.name]: inputValue }
       );
+    }
+
+    if (isQuestionSkipped) {
+      setIsQuestionSkipped(false);
     }
     questionNumberHandler();
   };
