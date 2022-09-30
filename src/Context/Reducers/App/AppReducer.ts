@@ -3,7 +3,7 @@ import { IAppState, ActionTypes, Action } from './AppProvider.types';
 export const initState: IAppState = {
     duration: "",
     experience: "",
-    customization: "",
+    customize: "",
     support: "",
     budget: "",
     attendees: "",
@@ -31,7 +31,7 @@ export const appReducer = (initState: IAppState, action: Action): IAppState => {
         case ActionTypes.ADD_CUSTOMIZATION_OPTION:
             return {
                 ...initState,
-                customization: action.payload,
+                 customize: action.payload,
             };
         case ActionTypes.ADD_EXPERIENCE_OPTION:
             return {
@@ -51,7 +51,7 @@ export const appReducer = (initState: IAppState, action: Action): IAppState => {
         case ActionTypes.REMOVE_CUSTOMIZATION_OPTION:
             return {
                 ...initState,
-                customization: "",
+                customize: "",
             };
         case ActionTypes.REMOVE_EXPERIENCE_OPTION:
             return {

@@ -9,6 +9,7 @@ import WizardSteps from "./WizardSteps/WizardSteps";
 const Wizard = () => {
   const [questionNumber, setQuestionNumber] = useState(0);
   const [contextState, dispatch] = useContext(AppContext);
+  console.log(contextState);
 
   /* Setting next question :: START */
   const nextNumberHandler = () => {

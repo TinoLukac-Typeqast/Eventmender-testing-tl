@@ -2,7 +2,7 @@
 export interface IAppState {
     duration: string,
     experience: string,
-    customization: string,
+    customize: string,
     support: string,
     budget: string,
     attendees: string
