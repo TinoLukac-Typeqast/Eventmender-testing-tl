@@ -1,43 +1,44 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AppContext } from "../../../Context/AppProvider";
+import {
+  addActionTypeHandler,
+  removeActionTypeHandler,
+} from "../../Utilities/WizardActiontype.utility";
 import "./WizardForm.scss";
 
 const WizardForm = ({
   question,
-  queryQuestionsHandler,
   children,
   inputValue,
   questionNumberHandler,
 }: IWizardForm) => {
-  /* const [inputValue, setInputValue] = useState("") */
   const [isQuestionSkipped, setIsQuestionSkipped] = useState(false);
+  const [contextState, dispatch] = useContext(AppContext);
 
-  const testHandler = (e: any) => {
+  const contextStateHandler = (e: any) => {
     e.preventDefault();
 
-    if (question.type === "input-options") {
-      queryQuestionsHandler(
-        isQuestionSkipped ? question.name : { [question.name]: inputValue }
-      );
-    }
-
-    if (question.type === "input-number") {
-      queryQuestionsHandler(
-        isQuestionSkipped ? question.name : { [question.name]: inputValue }
-      );
+    if (!isQuestionSkipped) {
+      const action = {
+        type: addActionTypeHandler(question.name),
+        payload: inputValue,
+      };
+      dispatch(action);
     }
 
     if (isQuestionSkipped) {
+      const action = {
+        type: removeActionTypeHandler(question.name),
+      };
+      dispatch(action);
       setIsQuestionSkipped(false);
     }
+
     questionNumberHandler();
   };
 
-  const skipQuestionHandler = () => {
-    setIsQuestionSkipped(true);
-  };
-
   return (
-    <form className="wizardform" action="" onSubmit={testHandler}>
+    <form className="wizardform" action="" onSubmit={contextStateHandler}>
       <p className="wizardform--name">{question.name}</p>
       <h2 className="wizardform--question">{question.question}</h2>
       <div
@@ -52,7 +53,9 @@ const WizardForm = ({
         <button
           type="submit"
           className="wizardform--btn"
-          onClick={skipQuestionHandler}
+          onClick={() => {
+            setIsQuestionSkipped(true);
+          }}
         >
           Skip
         </button>
@@ -67,7 +70,6 @@ const WizardForm = ({
 
 interface IWizardForm {
   question: any;
-  queryQuestionsHandler: any;
   children: any;
   inputValue?: any;
   questionNumberHandler: any;

@@ -1,28 +1,22 @@
+import { useContext } from "react";
 import { QuestionsConstants } from "../../../constants/questions.constants";
+import { AppContext } from "../../../Context/AppProvider";
 import "./WizardSteps.scss";
 
-const WizardSteps = ({
-  stepNumberHandler,
-  questionNumber,
-  queryQuestions,
-}: IWizardSteps) => {
+const WizardSteps = ({ stepNumberHandler, questionNumber }: IWizardSteps) => {
+  const [contextState, dispatch] = useContext(AppContext);
   return (
     <div className="wizardSteps">
       {QuestionsConstants.map((question, i) => (
-        <>
-          <div>
-            <p>{question.name}</p>
-          </div>
-          <div
-            key={i}
-            className={`wizardSteps-num ${questionNumber === i && "round"} ${
-              queryQuestions[question.name] ? "fill" : ""
-            }`}
-            onClick={stepNumberHandler.bind(null, i)}
-          >
-            {i + 1}
-          </div>
-        </>
+        <div
+          key={i}
+          className={`wizardSteps-num ${questionNumber === i && "round"} ${
+            contextState[question.name.toLowerCase()] ? "fill" : ""
+          }`}
+          onClick={stepNumberHandler.bind(null, i)}
+        >
+          {i + 1}
+        </div>
       ))}
     </div>
   );
@@ -31,7 +25,6 @@ const WizardSteps = ({
 interface IWizardSteps {
   stepNumberHandler: any;
   questionNumber: number;
-  queryQuestions: any;
 }
 
 export default WizardSteps;
