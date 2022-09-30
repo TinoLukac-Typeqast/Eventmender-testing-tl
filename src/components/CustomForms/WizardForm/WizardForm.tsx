@@ -18,6 +18,7 @@ const WizardForm = ({
   const contextStateHandler = (e: any) => {
     e.preventDefault();
 
+    /* Adding value to the contextState */
     if (!isQuestionSkipped) {
       const action = {
         type: addActionTypeHandler(question.name),
@@ -26,6 +27,7 @@ const WizardForm = ({
       dispatch(action);
     }
 
+    /* Removing value or keeping it default from contextState */
     if (isQuestionSkipped) {
       const action = {
         type: removeActionTypeHandler(question.name),
@@ -34,6 +36,7 @@ const WizardForm = ({
       setIsQuestionSkipped(false);
     }
 
+    /* Going to next question */
     questionNumberHandler();
   };
 

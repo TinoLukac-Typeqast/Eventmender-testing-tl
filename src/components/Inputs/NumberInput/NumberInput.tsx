@@ -10,6 +10,7 @@ const NumberInput = ({
     e.preventDefault();
     inputValue(e.target.value);
   };
+
   return (
     <span>
       {currency && <h3>{currency[0]}</h3>}

@@ -13,11 +13,14 @@ const WizardQuestion = ({
   const [inputValue, setInputValue] = useState("");
   const [contextState, dispatch] = useContext(AppContext);
 
+  /* Setting which option is selected on Radio group input :: START */
   const handleCheckedOption = (option: string) => {
     setOptionChecked(option);
   };
+  /* Setting which option is selected on Radio group input :: END */
 
   useEffect(() => {
+    /* Setting the inputs value states depending on contextState */
     if (contextState[question.name.toLowerCase()]) {
       setOptionChecked(contextState[question.name.toLowerCase()]);
       setInputValue(contextState[question.name.toLowerCase()]);
