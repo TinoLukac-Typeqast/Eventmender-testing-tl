@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { AppContext } from "../../../Context/AppProvider";
 import WizardForm from "../../CustomForms/WizardForm/WizardForm";
 import NumberInput from "../../Inputs/NumberInput/NumberInput";
 import RadioBtn from "../../Inputs/RadioBtn/RadioBtn";
@@ -6,31 +7,25 @@ import "./WizardQuestion.scss";
 
 const WizardQuestion = ({
   question,
-  queryQuestionsHandler,
   questionNumberHandler,
-  queryQuestions,
 }: IWizardQuestion) => {
   const [checkedOption, setOptionChecked] = useState("");
-
   const [inputValue, setInputValue] = useState("");
+  const [contextState, dispatch] = useContext(AppContext);
 
   const handleCheckedOption = (option: string) => {
     setOptionChecked(option);
   };
 
   useEffect(() => {
-    if (queryQuestions[question.name]) {
-      setOptionChecked(queryQuestions[question.name]);
-      setInputValue(queryQuestions[question.name]);
-    }
-
-    if (Object.keys(queryQuestions).includes(question.name)) {
-      setOptionChecked(queryQuestions[question.name]);
+    if (contextState[question.name.toLowerCase()]) {
+      setOptionChecked(contextState[question.name.toLowerCase()]);
+      setInputValue(contextState[question.name.toLowerCase()]);
     } else {
       setOptionChecked("");
       setInputValue("");
     }
-  }, [question, queryQuestions]);
+  }, [question, contextState]);
 
   return (
     <div className="wizardQuestion">
@@ -38,14 +33,12 @@ const WizardQuestion = ({
         <WizardForm
           inputValue={checkedOption}
           question={question}
-          queryQuestionsHandler={queryQuestionsHandler}
           questionNumberHandler={questionNumberHandler}
         >
           {question.options?.map((test) => (
             <RadioBtn
               key={test}
               option={test}
-              queryQuestions={queryQuestions}
               checkedOption={checkedOption}
               inputValue={setInputValue}
               handleCheckedOption={handleCheckedOption}
@@ -58,12 +51,11 @@ const WizardQuestion = ({
         <WizardForm
           inputValue={inputValue}
           question={question}
-          queryQuestionsHandler={queryQuestionsHandler}
           questionNumberHandler={questionNumberHandler}
         >
           <NumberInput
             inputValue={setInputValue}
-            userValue={queryQuestions[question.name] || false}
+            userValue={contextState[question.name.toLowerCase()] || false}
             name={question.placeholder}
             currency={question.currency}
           ></NumberInput>
@@ -82,9 +74,7 @@ interface IWizardQuestion {
     placeholder?: string;
     currency?: string[];
   };
-  queryQuestionsHandler: any;
   questionNumberHandler: any;
-  queryQuestions: any;
 }
 
 export default WizardQuestion;

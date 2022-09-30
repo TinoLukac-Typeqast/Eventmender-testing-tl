@@ -1,14 +1,14 @@
 import axios from "axios";
-import { Fragment, useCallback, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { QuestionsConstants } from "../../constants/questions.constants";
+import { AppContext } from "../../Context/AppProvider";
 import "./Wizard.scss";
 import WizardQuestion from "./WizardQuestion/WizardQuestion";
 import WizardSteps from "./WizardSteps/WizardSteps";
 
 const Wizard = () => {
   const [questionNumber, setQuestionNumber] = useState(0);
-
-  const [queryQuestions, setQueryQuestions] = useState<any>({});
+  const [contextState, dispatch] = useContext(AppContext);
 
   const nextNumberHandler = () => {
     if (QuestionsConstants.length > questionNumber) {
@@ -20,40 +20,22 @@ const Wizard = () => {
     setQuestionNumber(stepNumber);
   };
 
-  const queryQuestionsHandler = (query: object | string) => {
-    if (typeof query === "object") {
-      setQueryQuestions((prevState: any) => ({
-        ...prevState,
-        ...query,
-      }));
-    }
-
-    if (typeof query === "string") {
-      const deletedItemArray = queryQuestions;
-      delete deletedItemArray[query];
-
-      setQueryQuestions(deletedItemArray);
-    }
-  };
-
   const fetchData = useCallback(async () => {
     const data = await axios.post(
       "https://eventapi.descology.com/api/platform/getPlatforms",
       {
-        level_of_support: queryQuestions["Support"] || "",
-        price_range: queryQuestions["Budget"]
-          ? +queryQuestions["Budget"]
+        level_of_support: contextState.support,
+        price_range: contextState.budget ? +contextState.budget : "null",
+        level_of_customisation: contextState.customization,
+        estimated_no_of_attendees: contextState.attendees
+          ? +contextState.attendees
           : "null",
-        level_of_customisation: queryQuestions["Customize"] || "",
-        estimated_no_of_attendees: queryQuestions["Attendees"]
-          ? +queryQuestions["Attendees"]
-          : "null",
-        duration_of_the_event: queryQuestions["Duration"] || "",
-        experience: queryQuestions["Experience"] || "",
+        duration_of_the_event: contextState.duration,
+        experience: contextState.experience,
       }
     );
     console.log(data);
-  }, [queryQuestions]);
+  }, [contextState]);
 
   useEffect(() => {
     if (questionNumber > QuestionsConstants.length - 1) {
@@ -64,22 +46,19 @@ const Wizard = () => {
   return (
     <div className="wizard">
       <WizardSteps
-        queryQuestions={queryQuestions}
         questionNumber={questionNumber}
         stepNumberHandler={stepNumberHandler}
       ></WizardSteps>
       {questionNumber <= QuestionsConstants.length - 1 && (
         <WizardQuestion
           question={QuestionsConstants[questionNumber]}
-          queryQuestions={queryQuestions}
-          queryQuestionsHandler={queryQuestionsHandler}
           questionNumberHandler={nextNumberHandler}
         ></WizardQuestion>
       )}
 
-      {questionNumber > QuestionsConstants.length - 1 && (
+      {/* {questionNumber > QuestionsConstants.length - 1 && (
         <div> results: {JSON.stringify(queryQuestions)}</div>
-      )}
+      )} */}
     </div>
   );
 };
