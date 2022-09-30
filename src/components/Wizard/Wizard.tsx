@@ -10,6 +10,7 @@ const Wizard = () => {
   const [questionNumber, setQuestionNumber] = useState(0);
   const [contextState, dispatch] = useContext(AppContext);
 
+  /* Setting next question :: START */
   const nextNumberHandler = () => {
     if (QuestionsConstants.length > questionNumber) {
       setQuestionNumber((prevState) => prevState + 1);
@@ -19,6 +20,7 @@ const Wizard = () => {
   const stepNumberHandler = (stepNumber: number) => {
     setQuestionNumber(stepNumber);
   };
+  /* Setting next question :: END */
 
   const fetchData = useCallback(async () => {
     const data = await axios.post(

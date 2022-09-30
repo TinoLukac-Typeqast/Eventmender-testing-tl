@@ -10,7 +10,8 @@ const WizardSteps = ({ stepNumberHandler, questionNumber }: IWizardSteps) => {
       {QuestionsConstants.map((question, i) => (
         <div
           key={i}
-          className={`wizardSteps-num ${questionNumber === i && "round"} ${
+          /* Filling the background color accordingly to state and selected question */
+          className={`wizardSteps-num ${questionNumber === i ? "round" : ""} ${
             contextState[question.name.toLowerCase()] ? "fill" : ""
           }`}
           onClick={stepNumberHandler.bind(null, i)}
