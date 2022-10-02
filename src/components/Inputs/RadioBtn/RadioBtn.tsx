@@ -24,7 +24,8 @@ interface IRadioBtn {
   option: string;
   checkedOption: string;
   handleCheckedOption: any;
-  inputValue: any;
+  /*   inputValue: any;
+   */
 }
 
 export default RadioBtn;
