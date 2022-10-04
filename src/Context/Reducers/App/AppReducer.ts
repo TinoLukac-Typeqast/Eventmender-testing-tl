@@ -11,6 +11,7 @@ export const initState: IAppState = {
 
 export const appReducer = (initState: IAppState, action: Action): IAppState => {
     console.log(action)
+    console.log(initState)
     switch (action.type) {
         case ActionTypes.ADD_SUPPORT_OPTION:
             return {

@@ -11,7 +11,7 @@ const reducers = combineReducers({
 });
 function App() {
   return (
-    <AppProvider reducer={reducers} state={state}>
+    <AppProvider reducer={appReducer} state={state}>
       <div className="App">
         <Routes>
           <Route path="*" element={<Navigate to="/matchmaking" replace />} />
