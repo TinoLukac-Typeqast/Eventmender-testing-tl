@@ -1,0 +1,27 @@
+.resultsWizardDropdown{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    &--header{
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    &--form{
+        display: flex;
+        flex-direction: column;
+
+
+        &-input{
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+
+        }
+        
+    }
+}

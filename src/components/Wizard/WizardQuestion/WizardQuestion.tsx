@@ -43,8 +43,8 @@ const WizardQuestion = ({
               key={test}
               option={test}
               checkedOption={checkedOption}
-              inputValue={setInputValue}
-              handleCheckedOption={handleCheckedOption}
+              /*               inputValue={setInputValue}
+               */ handleCheckedOption={handleCheckedOption}
             ></RadioBtn>
           ))}
         </WizardForm>
@@ -58,6 +58,7 @@ const WizardQuestion = ({
         >
           <NumberInput
             inputValue={setInputValue}
+            isDefaultValue={true}
             userValue={contextState[question.name.toLowerCase()] || false}
             name={question.placeholder}
             currency={question.currency}

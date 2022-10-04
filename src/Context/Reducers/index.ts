@@ -5,6 +5,7 @@ const state = {
 };
 
 const combineReducers = (reducers: any) => {
+    console.log(reducers)
     return (state: any, action: any) => {
         return Object.keys(reducers).reduce(
             (acc, prop) => {
