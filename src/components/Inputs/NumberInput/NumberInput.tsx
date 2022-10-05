@@ -1,3 +1,4 @@
+import { useState } from "react";
 import "./NumberInput.scss";
 
 const NumberInput = ({
@@ -7,8 +8,12 @@ const NumberInput = ({
   inputValue,
   isDefaultValue,
 }: INumberInput) => {
+  const [value, setValue] = useState(userValue);
+
   const numberValueHandler = (e: any) => {
-    e.preventDefault();
+    console.log(e.target.value);
+    console.log(userValue);
+    setValue(e.target.value);
 
     inputValue(e.target.value);
   };
@@ -24,7 +29,7 @@ const NumberInput = ({
           name={name}
           id={name}
           min={0}
-          defaultValue={userValue ? +userValue : ""}
+          value={value}
           placeholder={name}
         />
       )}

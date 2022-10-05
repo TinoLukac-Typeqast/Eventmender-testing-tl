@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { Key, useContext, useEffect, useState } from "react";
 import { AppContext } from "../../../Context/AppProvider";
 import WizardForm from "../../CustomForms/WizardForm/WizardForm";
 import NumberInput from "../../Inputs/NumberInput/NumberInput";
@@ -8,6 +8,7 @@ import "./WizardQuestion.scss";
 const WizardQuestion = ({
   question,
   questionNumberHandler,
+  questionNumber,
 }: IWizardQuestion) => {
   const [checkedOption, setOptionChecked] = useState("");
   const [inputValue, setInputValue] = useState("");
@@ -37,14 +38,14 @@ const WizardQuestion = ({
           inputValue={checkedOption}
           question={question}
           questionNumberHandler={questionNumberHandler}
+          questionNumber={questionNumber}
         >
-          {question.options?.map((test) => (
+          {question.options?.map((option: string | IOption, i) => (
             <RadioBtn
-              key={test}
-              option={test}
+              key={i}
+              option={option}
               checkedOption={checkedOption}
-              /*               inputValue={setInputValue}
-               */ handleCheckedOption={handleCheckedOption}
+              handleCheckedOption={handleCheckedOption}
             ></RadioBtn>
           ))}
         </WizardForm>
@@ -55,11 +56,12 @@ const WizardQuestion = ({
           inputValue={inputValue}
           question={question}
           questionNumberHandler={questionNumberHandler}
+          questionNumber={questionNumber}
         >
           <NumberInput
             inputValue={setInputValue}
             isDefaultValue={true}
-            userValue={contextState[question.name.toLowerCase()] || false}
+            userValue={contextState[question.name.toLowerCase()] || ""}
             name={question.placeholder}
             currency={question.currency}
           ></NumberInput>
@@ -74,11 +76,18 @@ interface IWizardQuestion {
     name: string;
     type: string;
     question: string;
-    options?: string[];
+    options?: string[] | IOption[];
     placeholder?: string;
     currency?: string[];
+    images?: string[];
   };
   questionNumberHandler: any;
+  questionNumber: number;
+}
+
+export interface IOption {
+  text: string;
+  image: string;
 }
 
 export default WizardQuestion;

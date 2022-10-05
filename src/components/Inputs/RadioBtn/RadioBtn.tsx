@@ -1,3 +1,4 @@
+import { IOption } from "../../Wizard/WizardQuestion/WizardQuestion";
 import "./RadioBtn.scss";
 
 const RadioBtn = ({
@@ -5,27 +6,34 @@ const RadioBtn = ({
   checkedOption,
   handleCheckedOption,
 }: IRadioBtn) => {
+  const optionType = typeof option === "string" ? option : option.text;
+
   return (
-    <label htmlFor={option} className="radioBtn">
+    <label
+      htmlFor={optionType}
+      className={`${typeof option === "string" ? "radioBtn" : "radioImages"}`}
+    >
       <input
         type="radio"
-        name={option}
-        id={option}
-        value={option}
-        checked={option === checkedOption}
-        onChange={handleCheckedOption.bind(null, option)}
-      />{" "}
-      {option}
+        name={optionType}
+        id={optionType}
+        value={optionType}
+        checked={optionType === checkedOption}
+        onChange={handleCheckedOption.bind(null, optionType)}
+      />
+      {typeof option === "string" ? (
+        option
+      ) : (
+        <img className="radioBtn-img" src={option.image} alt={option.text} />
+      )}
     </label>
   );
 };
 
 interface IRadioBtn {
-  option: string;
+  option: string | IOption;
   checkedOption: string;
   handleCheckedOption: any;
-  /*   inputValue: any;
-   */
 }
 
 export default RadioBtn;

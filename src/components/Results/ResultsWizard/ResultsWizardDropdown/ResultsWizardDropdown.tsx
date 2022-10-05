@@ -6,6 +6,7 @@ import {
   addActionTypeHandler,
   removeActionTypeHandler,
 } from "../../../Utilities/WizardActiontype.utility";
+import { IOption } from "../../../Wizard/WizardQuestion/WizardQuestion";
 import "./ResultsWizardDropdown.scss";
 
 interface IResultsWizardDropdown {
@@ -13,7 +14,7 @@ interface IResultsWizardDropdown {
     name: string;
     type: string;
     question: string;
-    options?: string[];
+    options?: string[] | IOption[];
     placeholder?: string;
     currency?: string[];
   };

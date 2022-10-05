@@ -1,27 +1,57 @@
 .wizardform{
     display: flex;
+
     flex-direction: column;
     align-items: flex-start;
 
-    &--name{
-        color: #b3b3b3;
+    &-step{
+        display: flex;
+        align-items: center;
+
+        &__p{
+            color: #b3b3b3;
+            margin: 0;
+            
+        }
+
+        &__empty{
+            background-color: transparent;
+            width: 36px;
+            height: 36px;
+        }
+        
     }
 
-    &--btnGroup{
+    &-btnGroup{
         display: flex;
         width: 100%;
-        justify-content: space-between;
+        justify-content: flex-start;
+
+        &-btn{
+            width: 144px;
+            height: 48px;
+            padding: 8px 12px ;
+            border: 1px solid black;
+            border-radius: 8px;
+            align-self: flex-end;
+            cursor: pointer;
+        }
+
+        &-btn__skip{
+            background-color: transparent;
+            border-color: black;
+            color: black;
+        }
+
+        &-btn__next{
+            margin-left: 20px;
+            background-color: #3d4afa;
+            border-color: #3d4afa;
+            color: white;
+        }
     }
 
-    &--btn{
-        background-color: #2331ff;
-        color: white;
-        border: none;
-        padding: 10px 25px ;
-        align-self: flex-end;
-        cursor: pointer;
-
-    }
+    
 
     &--radio{
         width: 100%;
@@ -31,7 +61,17 @@
         color: #222222;
         padding-bottom: 20px;
         margin-bottom: 20px;
-        border-bottom: 2px solid #b3b3b3;
+    }
+
+    &--radio-images{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        width: 100%;
+        align-items: flex-start;
+        padding-bottom:20px ;
+        margin-bottom: 20px;
+        margin-top: 20px;
     }
 
     &--number{
@@ -42,14 +82,20 @@
         color: #222222;
         padding-bottom: 20px;
         margin-bottom: 20px;
-        border-bottom: 2px solid #b3b3b3;
+        margin-top: 20px;
 
 
         input{
-            border: 1px solid #3d4afa;
-            outline: 1px solid #3d4afa;
+            border: 1px solid #8E8E8E;
+            border-radius: 8px;
+            outline: none;
             padding: 10px;
             font-weight: 600;
+            transition: border-color 0.2s ease-in;
+
+            &:focus{
+                border-color: black;
+            }
         }
 
     }
