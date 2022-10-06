@@ -20,13 +20,13 @@ const WizardSteps = ({ stepNumberHandler, questionNumber }: IWizardSteps) => {
             >
               <div
                 /* Filling the background color accordingly to state and selected question */
-                className={`wizardSteps-num ${
+                className={`wizardSteps-group--num ${
                   questionNumber === i ? "fill" : ""
                 } `}
               >
                 {i + 1}
               </div>
-              <p className="wizardSteps-group-name">{question.name}</p>
+              <p className="wizardSteps-group--name">{question.name}</p>
             </div>
           );
         }
@@ -38,7 +38,7 @@ const WizardSteps = ({ stepNumberHandler, questionNumber }: IWizardSteps) => {
               key={i}
               onClick={stepNumberHandler.bind(null, i)}
             >
-              <div className="wizardSteps-num wizardSteps-checkbox">
+              <div className="wizardSteps-group--num wizardSteps-checkbox">
                 <svg
                   width="24px"
                   height="24px"
@@ -64,7 +64,7 @@ const WizardSteps = ({ stepNumberHandler, questionNumber }: IWizardSteps) => {
                   </g>
                 </svg>
               </div>
-              <p className="wizardSteps-group-name">{question.name}</p>
+              <p className="wizardSteps-group--name">{question.name}</p>
             </div>
           );
         }

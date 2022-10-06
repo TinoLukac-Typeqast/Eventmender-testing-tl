@@ -80,7 +80,7 @@ export const QuestionsConstants: IQuestion[] = [
     name: "Budget",
     type: "input-number",
     question: "What is the budget for your event platform?",
-    currency: ["Euro"],
+    currency: ["€"],
     placeholder: "Enter your budget",
   },
 ];

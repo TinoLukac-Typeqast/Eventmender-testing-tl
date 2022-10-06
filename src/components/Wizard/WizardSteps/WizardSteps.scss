@@ -1,4 +1,4 @@
-.wizardSteps-num{
+.wizardSteps-group--num{
     display: flex;
     position: relative;
 
@@ -28,7 +28,7 @@
     margin-bottom: 60px;
     cursor: pointer;
 
-    &-name{
+    &--name{
         margin: 0;
         margin-left: 20px;
     }
@@ -69,11 +69,6 @@
 
 .wizardSteps{
     position: relative;
-   /*  width: 80%; */
-    /* padding-left: 100px; 
-    padding-top: 100px;   
-    padding-right: 100px; */
-  
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -95,7 +90,3 @@
     background-color: #2331ff;
     color: white;
 }
-
-/* .fill:not(:last-child)::after{
-    background-color: #2331ff;
-} */

@@ -20,22 +20,24 @@ const NumberInput = ({
 
   return (
     <span>
-      {currency && <h3>{currency[0]}</h3>}
-
       {isDefaultValue && (
-        <input
-          onChange={numberValueHandler}
-          type="number"
-          name={name}
-          id={name}
-          min={0}
-          value={value}
-          placeholder={name}
-        />
+        <label htmlFor={name}>
+          {currency ? currency[0] : ""}
+          <input
+            autoFocus
+            onChange={numberValueHandler}
+            type="number"
+            name={name}
+            id={name}
+            min={0}
+            value={value}
+            placeholder={name}
+          />
+        </label>
       )}
-
       {!isDefaultValue && (
         <input
+          autoFocus
           type="number"
           name={name}
           id={name}
