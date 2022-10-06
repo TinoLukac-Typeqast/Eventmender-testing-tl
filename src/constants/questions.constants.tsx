@@ -1,4 +1,4 @@
-interface IQuestion {
+export interface IQuestion {
   name: string;
   type: string;
   question: string;

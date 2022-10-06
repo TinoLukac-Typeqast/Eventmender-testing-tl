@@ -13,7 +13,6 @@ const WizardQuestion = ({
   const [checkedOption, setOptionChecked] = useState("");
   const [inputValue, setInputValue] = useState("");
   const [contextState, dispatch] = useContext(AppContext);
-
   /* Setting which option is selected on Radio group input :: START */
   const handleCheckedOption = (option: string) => {
     setOptionChecked(option);
@@ -22,19 +21,20 @@ const WizardQuestion = ({
 
   useEffect(() => {
     /* Setting the inputs value states depending on contextState */
-    if (contextState[question.name.toLowerCase()]) {
-      setOptionChecked(contextState[question.name.toLowerCase()]);
-      setInputValue(contextState[question.name.toLowerCase()]);
+    if (contextState.appReducer[question.name.toLowerCase()]) {
+      setOptionChecked(contextState.appReducer[question.name.toLowerCase()]);
+      setInputValue(contextState.appReducer[question.name.toLowerCase()]);
     } else {
       setOptionChecked("");
       setInputValue("");
     }
-  }, [question, contextState]);
+  }, [question, contextState.appReducer]);
 
   return (
     <div className="wizardQuestion">
       {question.type === "input-options" && (
         <WizardForm
+          key={question.name}
           inputValue={checkedOption}
           question={question}
           questionNumberHandler={questionNumberHandler}
@@ -53,6 +53,7 @@ const WizardQuestion = ({
 
       {question.type === "input-number" && (
         <WizardForm
+          key={question.name}
           inputValue={inputValue}
           question={question}
           questionNumberHandler={questionNumberHandler}
@@ -60,8 +61,9 @@ const WizardQuestion = ({
         >
           <NumberInput
             inputValue={setInputValue}
-            isDefaultValue={true}
-            userValue={contextState[question.name.toLowerCase()] || ""}
+            userValue={
+              contextState.appReducer[question.name.toLowerCase()] || ""
+            }
             name={question.placeholder}
             currency={question.currency}
           ></NumberInput>

@@ -11,7 +11,6 @@ const WizardPage = () => {
   const [contextState, dispatch] = useContext(AppContext);
 
   const navigate = useNavigate();
-  console.log(contextState);
 
   /* Setting next question :: START */
   const nextNumberHandler = () => {

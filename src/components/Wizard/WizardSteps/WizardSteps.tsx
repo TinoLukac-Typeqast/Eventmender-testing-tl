@@ -5,12 +5,13 @@ import "./WizardSteps.scss";
 
 const WizardSteps = ({ stepNumberHandler, questionNumber }: IWizardSteps) => {
   const [contextState, dispatch] = useContext(AppContext);
+  console.log(contextState);
   return (
     <div className="wizardSteps">
       {QuestionsConstants.map((question, i) => {
         if (
           questionNumber === i ||
-          !contextState[question.name.toLowerCase()]
+          !contextState.appReducer[question.name.toLowerCase()]
         ) {
           return (
             <div
@@ -31,7 +32,7 @@ const WizardSteps = ({ stepNumberHandler, questionNumber }: IWizardSteps) => {
           );
         }
 
-        if (contextState[question.name.toLowerCase()]) {
+        if (contextState.appReducer[question.name.toLowerCase()]) {
           return (
             <div
               className="wizardSteps-group"

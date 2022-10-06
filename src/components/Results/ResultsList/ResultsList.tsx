@@ -4,22 +4,30 @@ import { QuestionsConstants } from "../../../constants/questions.constants";
 import { AppContext } from "../../../Context/AppProvider";
 import { QueryClient, QueryClientProvider, useQuery } from "react-query";
 import "./ResultsList.scss";
+import { isConstructorDeclaration } from "typescript";
 
 const ResultsList = () => {
   /*   const [resultsList, setResultsList] = useState([]);
    */ const [contextState, dispatch] = useContext(AppContext);
 
   const fetchData = async () => {
+    const currencyExchange = Math.round(
+      +contextState.appReducer.budget / contextState.currency.valueToEuro
+    );
+    console.log(currencyExchange);
     const res: any = await axios.post<any>(
       "https://eventapi.descology.com/api/platform/getPlatforms",
       {
-        level_of_support: contextState.support,
-        price_range: contextState.budget === "" ? "null" : +contextState.budget,
-        level_of_customisation: contextState.customize,
+        level_of_support: contextState.appReducer.support,
+        price_range:
+          contextState.appReducer.budget === "" ? "null" : currencyExchange,
+        level_of_customisation: contextState.appReducer.customize,
         estimated_no_of_attendees:
-          contextState.attendees === "" ? "null" : +contextState.attendees,
-        duration_of_the_event: contextState.duration,
-        experience: contextState.experience,
+          contextState.appReducer.attendees === ""
+            ? "null"
+            : +contextState.appReducer.attendees,
+        duration_of_the_event: contextState.appReducer.duration,
+        experience: contextState.appReducer.experience,
       }
     );
     /*  console.log(res.data.platforms); */

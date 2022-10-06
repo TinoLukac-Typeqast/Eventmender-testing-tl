@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react";
+import { IQuestion } from "../../../../constants/questions.constants";
 import { AppContext } from "../../../../Context/AppProvider";
 import NumberInput from "../../../Inputs/NumberInput/NumberInput";
 import RadioBtn from "../../../Inputs/RadioBtn/RadioBtn";
@@ -6,18 +7,10 @@ import {
   addActionTypeHandler,
   removeActionTypeHandler,
 } from "../../../Utilities/WizardActiontype.utility";
-import { IOption } from "../../../Wizard/WizardQuestion/WizardQuestion";
 import "./ResultsWizardDropdown.scss";
 
 interface IResultsWizardDropdown {
-  question: {
-    name: string;
-    type: string;
-    question: string;
-    options?: string[] | IOption[];
-    placeholder?: string;
-    currency?: string[];
-  };
+  question: IQuestion;
   index: number;
   setOpenDropdownIndex: Function;
   isDropdownOpenDefault: boolean;
@@ -31,8 +24,7 @@ const ResultsWizardDropdown = ({
 }: IResultsWizardDropdown) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(isDropdownOpenDefault);
   const [checkedOption, setOptionChecked] = useState("");
-  /*   const [inputValue, setInputValue] = useState("");
-   */ const [contextState, dispatch] = useContext(AppContext);
+  const [contextState, dispatch] = useContext(AppContext);
 
   const dropdownMenuHandler = () => {
     if (isDropdownOpen) {
@@ -66,8 +58,8 @@ const ResultsWizardDropdown = ({
 
   useEffect(() => {
     /* Setting the inputs value states depending on contextState */
-    if (contextState[question.name.toLowerCase()]) {
-      setOptionChecked(contextState[question.name.toLowerCase()]);
+    if (contextState.appReducer[question.name.toLowerCase()]) {
+      setOptionChecked(contextState.appReducer[question.name.toLowerCase()]);
     } else {
       setOptionChecked("");
     }
@@ -113,10 +105,12 @@ const ResultsWizardDropdown = ({
           {question.type === "input-number" && (
             <div className="resultsWizardDropdown--form-input">
               <NumberInput
-                isDefaultValue={false}
-                userValue={contextState[question.name.toLowerCase()] || false}
+                userValue={
+                  contextState.appReducer[question.name.toLowerCase()] || false
+                }
                 name={question.placeholder}
                 currency={question.currency}
+                isResultsWizard={true}
               ></NumberInput>
             </div>
           )}
