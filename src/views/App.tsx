@@ -1,17 +1,21 @@
 import AppProvider from "../Context/AppProvider";
-import { combineReducers, state } from "../Context/Reducers";
 import { appReducer } from "../Context/Reducers/App/AppReducer";
 import { Routes, Route, Navigate } from "react-router-dom";
 import "./App.scss";
 import WizardPage from "./WizardPage/WizardPage";
 import ResultsPage from "./ResultsPage/ResultsPage";
+import { initState } from "../Context/InitialStates/appState";
+import combineReducers from "react-combine-reducers";
+import { currencyReducer } from "../Context/Reducers/Currency/CurrencyReducer";
+import { currencyState } from "../Context/InitialStates/currencyState";
 
-const reducers = combineReducers({
-  appReducer,
+const [reducerCombined, initialStateCombined] = combineReducers({
+  appReducer: [appReducer, initState],
+  currency: [currencyReducer, currencyState],
 });
 function App() {
   return (
-    <AppProvider reducer={appReducer} state={state}>
+    <AppProvider reducer={reducerCombined} state={initialStateCombined}>
       <div className="App">
         <Routes>
           <Route path="*" element={<Navigate to="/matchmaking" replace />} />

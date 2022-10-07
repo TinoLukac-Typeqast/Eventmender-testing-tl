@@ -1,4 +1,18 @@
-export const QuestionsConstants = [
+export interface IQuestion {
+  name: string;
+  type: string;
+  question: string;
+  options?: string[] | IOption[];
+  placeholder?: string;
+  hasCurrencyDropdownMenu?: boolean;
+}
+
+export interface IOption {
+  text: string;
+  image: string;
+}
+
+export const QuestionsConstants: IQuestion[] = [
   {
     name: "Duration",
     type: "input-options",
@@ -20,11 +34,24 @@ export const QuestionsConstants = [
     name: "Experience",
     type: "input-options",
     question: "What experience would you like?",
+
     options: [
-      "2D (standard)",
-      "Semi 2D (including 3D images, without the option to walk around)",
-      "3D MR (possibility of walking around using your avatar",
-      "3D VR (immersive experience requiring VR glasses to walk around, using your avatar",
+      {
+        text: "2D (standard)",
+        image: "/images/2D.png",
+      },
+      {
+        text: "Semi 2D (including 3D images, without the option to walk around)",
+        image: "/images/Semi2D.png",
+      },
+      {
+        text: "3D MR (possibility of walking around using your avatar",
+        image: "/images/3DMR.png",
+      },
+      {
+        text: "3D VR (immersive experience requiring VR glasses to walk around, using your avatar",
+        image: "/images/3DVR.png",
+      },
     ],
   },
   {
@@ -53,7 +80,7 @@ export const QuestionsConstants = [
     name: "Budget",
     type: "input-number",
     question: "What is the budget for your event platform?",
-    currency: ["Euro"],
+    hasCurrencyDropdownMenu: true,
     placeholder: "Enter your budget",
   },
 ];

@@ -1,54 +1,103 @@
+import { useContext, useEffect, useRef, useState } from "react";
+
+import { currencyData } from "../../../constants/currency.constants";
+import { AppContext } from "../../../Context/AppProvider";
 import "./NumberInput.scss";
 
 const NumberInput = ({
   name,
-  currency,
+  hasCurrencyDropdownMenu,
   userValue,
   inputValue,
-  isDefaultValue,
+  isResultsWizard,
 }: INumberInput) => {
-  const numberValueHandler = (e: any) => {
-    e.preventDefault();
+  const [contextState, dispatch] = useContext(AppContext);
+  const [value, setValue] = useState(userValue);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-    inputValue(e.target.value);
+  const currencyRef = useRef<any>(null);
+
+  const numberValueHandler = (e: any) => {
+    setValue(e.target.value);
+    if (!isResultsWizard) {
+      inputValue(e.target.value);
+    }
   };
 
-  return (
-    <span>
-      {currency && <h3>{currency[0]}</h3>}
+  /* adding handler for clicking outside of dropdown menu :: START */
+  useEffect(() => {
+    const dropdownMenuHandler = (e: any) => {
+      if (currencyRef.current && !currencyRef.current.contains(e.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+    document.body.addEventListener("click", dropdownMenuHandler);
 
-      {isDefaultValue && (
+    return () => {
+      document.body.removeEventListener("click", dropdownMenuHandler);
+    };
+  }, []);
+  /* adding handler for clicking outside of dropdown menu :: END */
+
+  return (
+    <>
+      <label htmlFor={name} className="input-group">
+        {/* checking if we have dropdown menu for choosing currencies :: START */}
+        {hasCurrencyDropdownMenu && (
+          <>
+            <button
+              ref={currencyRef}
+              className="currency-dropdown"
+              onClick={(e: any) => setIsDropdownOpen((prevState) => !prevState)}
+            >
+              {`${contextState.currency.symbol}`}
+            </button>
+            {isDropdownOpen && (
+              <ul className="dropdown">
+                {currencyData.map((item, i) => (
+                  <li
+                    key={i}
+                    onClick={() =>
+                      dispatch({ type: "CURRENCY", payload: currencyData[i] })
+                    }
+                  >
+                    <div className="dropdown-item">
+                      <img
+                        className="dropdown-item--img"
+                        src={item.flagImage}
+                        alt=""
+                      />
+                      <p className="dropdown-item--name">{item.currency}</p>
+                      <p className="dropdown-item--symbol">{`(${item.symbol})`}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </>
+        )}
+        {/* checking if we have dropdown menu for choosing currencies :: END */}
         <input
+          autoFocus
           onChange={numberValueHandler}
           type="number"
           name={name}
           id={name}
           min={0}
-          defaultValue={userValue ? +userValue : ""}
+          value={value}
           placeholder={name}
         />
-      )}
-
-      {!isDefaultValue && (
-        <input
-          type="number"
-          name={name}
-          id={name}
-          min={0}
-          value={userValue ? +userValue : ""}
-          placeholder={name}
-        />
-      )}
-    </span>
+      </label>
+    </>
   );
 };
 
 interface INumberInput {
   name: string | undefined;
-  currency?: string[] | undefined;
+  hasCurrencyDropdownMenu?: boolean | undefined;
   userValue: string;
   inputValue?: any;
-  isDefaultValue: boolean;
+  isResultsWizard?: boolean;
 }
 
 export default NumberInput;

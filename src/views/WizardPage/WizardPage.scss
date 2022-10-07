@@ -2,8 +2,29 @@
     display: flex;
     z-index: 0;
     justify-content: center;
-    align-items: flex-start;
-    padding-top: 50px;
+    align-items: stretch;
+    /* padding-top: 50px; */
     background-color: #fafafa;
     height: 100vh;
+
+    &-steps{
+        flex: 20%;
+        display: flex;
+        background-color: #F3F3F3;
+        justify-content: center;
+    }
+
+    &-question{
+        flex: 75%;
+    }
 }
+
+
+@media (min-width: 2560px) {
+    .wizardPage{
+        &-steps{
+            flex: 10%;
+            
+        }
+    }
+  }

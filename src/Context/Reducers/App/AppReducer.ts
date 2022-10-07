@@ -1,17 +1,9 @@
 import { IAppState, ActionTypes, Action } from './AppProvider.types';
 
-export const initState: IAppState = {
-    duration: "",
-    experience: "",
-    customize: "",
-    support: "",
-    budget: "",
-    attendees: "",
-};
 
 export const appReducer = (initState: IAppState, action: Action): IAppState => {
     console.log(action)
-    console.log(initState)
+   
     switch (action.type) {
         case ActionTypes.ADD_SUPPORT_OPTION:
             return {

@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+
 import { AppContext } from "../../../Context/AppProvider";
 import {
   addActionTypeHandler,
@@ -11,59 +12,78 @@ const WizardForm = ({
   children,
   inputValue,
   questionNumberHandler,
+  questionNumber,
 }: IWizardForm) => {
-  const [isQuestionSkipped, setIsQuestionSkipped] = useState(false);
   const [contextState, dispatch] = useContext(AppContext);
 
-  const contextStateHandler = (e: any) => {
+  /* Adding value to the contextState */
+  const addQuestionHandler = (e: any) => {
     e.preventDefault();
 
-    /* Adding value to the contextState */
-    if (!isQuestionSkipped) {
-      const action = {
-        type: addActionTypeHandler(question.name),
-        payload: inputValue,
-      };
-      dispatch(action);
-    }
+    const action = {
+      type: addActionTypeHandler(question.name),
+      payload: inputValue,
+    };
+    dispatch(action);
 
-    /* Removing value or keeping it default from contextState */
-    if (isQuestionSkipped) {
-      const action = {
-        type: removeActionTypeHandler(question.name),
-      };
-      dispatch(action);
-      setIsQuestionSkipped(false);
-    }
+    /* Going to next question */
+    questionNumberHandler();
+  };
+
+  /* Removing value or keeping it default from contextState */
+  const skipQuestionHandler = (e: any) => {
+    e.preventDefault();
+
+    const action = {
+      type: removeActionTypeHandler(question.name),
+    };
+    dispatch(action);
 
     /* Going to next question */
     questionNumberHandler();
   };
 
   return (
-    <form className="wizardform" action="" onSubmit={contextStateHandler}>
-      <p className="wizardform--name">{question.name}</p>
+    <form
+      className="wizardform"
+      action=""
+      onSubmit={(e: any) => {
+        e.preventDefault();
+      }}
+    >
+      <div className="wizardform-step">
+        <p className="wizardform-step__p">Step {questionNumber + 1}</p>
+        <div className="wizardform-step__empty"></div>
+      </div>
+
       <h2 className="wizardform--question">{question.question}</h2>
       <div
         className={`wizardform--${
-          question.type === "input-options" ? "radio" : "number"
-        }`}
+          question.type === "input-options"
+            ? `${
+                typeof question.options[0] === "string"
+                  ? "radio"
+                  : "radio-images"
+              }`
+            : "number"
+        } `}
       >
         {children}
       </div>
 
-      <div className="wizardform--btnGroup">
+      <div className="wizardform-btnGroup">
         <button
-          type="submit"
-          className="wizardform--btn"
-          onClick={() => {
-            setIsQuestionSkipped(true);
-          }}
+          className="wizardform-btnGroup-btn wizardform-btnGroup-btn__skip"
+          onClick={skipQuestionHandler}
         >
           Skip
         </button>
 
-        <button type="submit" className="wizardform--btn">
+        <button
+          type="submit"
+          className="wizardform-btnGroup-btn wizardform-btnGroup-btn__next"
+          onClick={addQuestionHandler}
+        >
           Next
         </button>
       </div>
@@ -76,6 +96,7 @@ interface IWizardForm {
   children: any;
   inputValue?: any;
   questionNumberHandler: any;
+  questionNumber: number;
 }
 
 export default WizardForm;
