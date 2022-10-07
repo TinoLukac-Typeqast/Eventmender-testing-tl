@@ -1,5 +1,6 @@
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+
 import WizardQuestion from "../../components/Wizard/WizardQuestion/WizardQuestion";
 import WizardSteps from "../../components/Wizard/WizardSteps/WizardSteps";
 import { QuestionsConstants } from "../../constants/questions.constants";
@@ -8,8 +9,6 @@ import "./WizardPage.scss";
 
 const WizardPage = () => {
   const [questionNumber, setQuestionNumber] = useState(0);
-  const [contextState, dispatch] = useContext(AppContext);
-
   const navigate = useNavigate();
 
   /* Setting next question :: START */

@@ -1,14 +1,16 @@
 import { useContext } from "react";
+
 import { QuestionsConstants } from "../../../constants/questions.constants";
 import { AppContext } from "../../../Context/AppProvider";
 import "./WizardSteps.scss";
 
 const WizardSteps = ({ stepNumberHandler, questionNumber }: IWizardSteps) => {
   const [contextState, dispatch] = useContext(AppContext);
-  console.log(contextState);
+
   return (
     <div className="wizardSteps">
       {QuestionsConstants.map((question, i) => {
+        /* if question in context is empty */
         if (
           questionNumber === i ||
           !contextState.appReducer[question.name.toLowerCase()]
@@ -20,7 +22,7 @@ const WizardSteps = ({ stepNumberHandler, questionNumber }: IWizardSteps) => {
               onClick={stepNumberHandler.bind(null, i)}
             >
               <div
-                /* Filling the background color accordingly to state and selected question */
+                /* Filling the background color when question is selected */
                 className={`wizardSteps-group--num ${
                   questionNumber === i ? "fill" : ""
                 } `}
@@ -32,6 +34,7 @@ const WizardSteps = ({ stepNumberHandler, questionNumber }: IWizardSteps) => {
           );
         }
 
+        /* if question in context has a choosen anwser already then number will be checked */
         if (contextState.appReducer[question.name.toLowerCase()]) {
           return (
             <div

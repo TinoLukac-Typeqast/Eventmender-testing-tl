@@ -1,11 +1,12 @@
-import { useCallback, useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
+
 import { currencyData } from "../../../constants/currency.constants";
 import { AppContext } from "../../../Context/AppProvider";
 import "./NumberInput.scss";
 
 const NumberInput = ({
   name,
-  currency,
+  hasCurrencyDropdownMenu,
   userValue,
   inputValue,
   isResultsWizard,
@@ -23,6 +24,7 @@ const NumberInput = ({
     }
   };
 
+  /* adding handler for clicking outside of dropdown menu :: START */
   useEffect(() => {
     const dropdownMenuHandler = (e: any) => {
       if (currencyRef.current && !currencyRef.current.contains(e.target)) {
@@ -32,16 +34,16 @@ const NumberInput = ({
     document.body.addEventListener("click", dropdownMenuHandler);
 
     return () => {
-      // removing event listener when the component unmounts
       document.body.removeEventListener("click", dropdownMenuHandler);
     };
   }, []);
+  /* adding handler for clicking outside of dropdown menu :: END */
 
   return (
     <>
       <label htmlFor={name} className="input-group">
         {/* checking if we have dropdown menu for choosing currencies :: START */}
-        {currency && (
+        {hasCurrencyDropdownMenu && (
           <>
             <button
               ref={currencyRef}
@@ -92,7 +94,7 @@ const NumberInput = ({
 
 interface INumberInput {
   name: string | undefined;
-  currency?: string[] | undefined;
+  hasCurrencyDropdownMenu?: boolean | undefined;
   userValue: string;
   inputValue?: any;
   isResultsWizard?: boolean;

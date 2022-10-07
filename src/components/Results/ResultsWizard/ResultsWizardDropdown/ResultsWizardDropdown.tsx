@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react";
+
 import { IQuestion } from "../../../../constants/questions.constants";
 import { AppContext } from "../../../../Context/AppProvider";
 import NumberInput from "../../../Inputs/NumberInput/NumberInput";
@@ -109,7 +110,9 @@ const ResultsWizardDropdown = ({
                   contextState.appReducer[question.name.toLowerCase()] || false
                 }
                 name={question.placeholder}
-                currency={question.currency}
+                hasCurrencyDropdownMenu={
+                  question.hasCurrencyDropdownMenu || false
+                }
                 isResultsWizard={true}
               ></NumberInput>
             </div>

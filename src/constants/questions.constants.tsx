@@ -4,7 +4,7 @@ export interface IQuestion {
   question: string;
   options?: string[] | IOption[];
   placeholder?: string;
-  currency?: string[];
+  hasCurrencyDropdownMenu?: boolean;
 }
 
 export interface IOption {
@@ -80,7 +80,7 @@ export const QuestionsConstants: IQuestion[] = [
     name: "Budget",
     type: "input-number",
     question: "What is the budget for your event platform?",
-    currency: ["€"],
+    hasCurrencyDropdownMenu: true,
     placeholder: "Enter your budget",
   },
 ];
