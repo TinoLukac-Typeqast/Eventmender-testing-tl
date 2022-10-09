@@ -21,7 +21,12 @@ const ResultsCard = ({
 
   const currencyOption = { style: "currency", currency: currency.currency };
   const priceRange = {
-    minPrice: vendor.price_range_1.toLocalString(),
+    minPrice: Math.round(
+      vendor.price_range_1 * currency.valueToEuro
+    ).toLocaleString(currency.local, currencyOption),
+    maxPrice: Math.round(
+      vendor.price_range_2 * currency.valueToEuro
+    ).toLocaleString(currency.local, currencyOption),
   };
 
   const compareHandler = () => {
@@ -127,7 +132,7 @@ const ResultsCard = ({
       <footer className="resultsCard-footer">
         <button className="resultsCard-footer--btn">More Info</button>
         <div className="resultsCard-footer--price">
-          <p className="resultsCard-footer--price__text">12.567 - 12.567</p>
+          <p className="resultsCard-footer--price__text">{`${priceRange.minPrice} - ${priceRange.maxPrice} `}</p>
           <p className="resultsCard-footer--price__estimate">estimated cost</p>
         </div>
       </footer>
