@@ -4,6 +4,8 @@ import { IQuestion } from "../../../../constants/questions.constants";
 import { AppContext } from "../../../../Context/AppProvider";
 import NumberInput from "../../../Inputs/NumberInput/NumberInput";
 import RadioBtn from "../../../Inputs/RadioBtn/RadioBtn";
+import CheckSvgIcon from "../../../UI/CheckSvgIcon/CheckSvgIcon";
+import DropdownArrowSvgIcon from "../../../UI/DropdownArrowSvgIcon/DropdownArrowSvgIcon";
 import {
   addActionTypeHandler,
   removeActionTypeHandler,
@@ -46,6 +48,8 @@ const ResultsWizardDropdown = ({
       type: removeActionTypeHandler(question.name),
     };
     dispatch(action);
+
+    setOpenDropdownIndex(null);
   };
 
   const contextStateHandler = (e: any) => {
@@ -78,8 +82,29 @@ const ResultsWizardDropdown = ({
         className="resultsWizardDropdown--header"
         onClick={dropdownMenuHandler}
       >
-        <h3>{question.name}</h3>
-        <h3>{"<"}</h3>
+        <div className="resultsWizardDropdown--header-name">
+          <p
+            className={
+              contextState.appReducer[question.name.toLowerCase()]
+                ? ""
+                : "resultsWizardDropdown--header-name__grey"
+            }
+          >
+            {question.name}
+          </p>
+          {contextState.appReducer[question.name.toLowerCase()] && (
+            <CheckSvgIcon size="20px"></CheckSvgIcon>
+          )}
+        </div>
+
+        <DropdownArrowSvgIcon
+          isDropdownOpen={isDropdownOpen}
+          fill={
+            contextState.appReducer[question.name.toLowerCase()]
+              ? "none"
+              : "#919191"
+          }
+        ></DropdownArrowSvgIcon>
       </div>
       {isDropdownOpen && (
         <form
@@ -98,6 +123,7 @@ const ResultsWizardDropdown = ({
                   option={option}
                   checkedOption={checkedOption}
                   handleCheckedOption={handleCheckedOption}
+                  isResultsMenu={true}
                 ></RadioBtn>
               ))}
             </div>
@@ -118,8 +144,12 @@ const ResultsWizardDropdown = ({
             </div>
           )}
 
-          <button type="submit" onClick={clearInputHandler}>
-            Clear
+          <button
+            type="submit"
+            onClick={clearInputHandler}
+            className="resultsCard-footer--btn"
+          >
+            Reset
           </button>
         </form>
       )}

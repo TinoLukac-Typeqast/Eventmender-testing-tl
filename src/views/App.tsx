@@ -8,10 +8,13 @@ import { initState } from "../Context/InitialStates/appState";
 import combineReducers from "react-combine-reducers";
 import { currencyReducer } from "../Context/Reducers/Currency/CurrencyReducer";
 import { currencyState } from "../Context/InitialStates/currencyState";
+import { compareReducer } from "../Context/Reducers/Compare/CompareReducer";
+import { compareState } from "../Context/InitialStates/compareState";
 
 const [reducerCombined, initialStateCombined] = combineReducers({
   appReducer: [appReducer, initState],
   currency: [currencyReducer, currencyState],
+  compareArray: [compareReducer, compareState],
 });
 function App() {
   return (

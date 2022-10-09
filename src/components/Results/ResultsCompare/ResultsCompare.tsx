@@ -1,19 +1,14 @@
 import axios from "axios";
 import { useContext } from "react";
-import { AppContext } from "../../../Context/AppProvider";
 import { useQuery } from "react-query";
-import "./ResultsList.scss";
-import ResultsCard from "../ResultsCard/ResultsCard";
+import { AppContext } from "../../../Context/AppProvider";
 
-interface IResultsList {
-  compareArray: any;
-  setCompareArray: any;
+interface IResultsCompare {
+  compareArray: string[];
 }
 
-const ResultsList = ({ compareArray, setCompareArray }: IResultsList) => {
+const ResultsCompare = ({ compareArray }: IResultsCompare) => {
   const [contextState, dispatch] = useContext(AppContext);
-
-  console.log(compareArray);
 
   const fetchData = async () => {
     console.log("fetchin");
@@ -43,34 +38,14 @@ const ResultsList = ({ compareArray, setCompareArray }: IResultsList) => {
   const { data, status } = useQuery(["results", contextState], fetchData, {
     refetchOnWindowFocus: false,
   });
-
-  if (status === "loading") {
-    return <span className="loader"></span>;
-  }
-
-  if (status === "error") {
-    return <div>Error 404</div>;
-  }
-
-  if (!data) {
-    return <div>No Results Found!</div>;
-  }
-
+  console.log({ fetched: data });
   return (
-    <div className="resultsList">
-      <h2 className="resultsList-title">{data?.length || 0} matches found</h2>
-      <div className="resultsList-items">
-        {data.map((item: any, i: number) => (
-          <ResultsCard
-            key={i}
-            vendor={item}
-            setCompareArray={setCompareArray}
-            compareArray={compareArray}
-          ></ResultsCard>
-        ))}
-      </div>
+    <div className="resultsCompare">
+      {compareArray.map((item: string, i: number) => (
+        <p key={i}>{item}</p>
+      ))}
     </div>
   );
 };
 
-export default ResultsList;
+export default ResultsCompare;
