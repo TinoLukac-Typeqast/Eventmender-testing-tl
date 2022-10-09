@@ -13,8 +13,6 @@ interface IResultsList {
 const ResultsList = ({ compareArray, setCompareArray }: IResultsList) => {
   const [contextState, dispatch] = useContext(AppContext);
 
-  console.log(compareArray);
-
   const fetchData = async () => {
     console.log("fetchin");
     const currencyExchange = Math.round(
@@ -40,9 +38,13 @@ const ResultsList = ({ compareArray, setCompareArray }: IResultsList) => {
     return res.data.platforms;
   };
 
-  const { data, status } = useQuery(["results", contextState], fetchData, {
-    refetchOnWindowFocus: false,
-  });
+  const { data, status } = useQuery(
+    ["results", contextState.appReducer],
+    fetchData,
+    {
+      refetchOnWindowFocus: false,
+    }
+  );
 
   if (status === "loading") {
     return <span className="loader"></span>;

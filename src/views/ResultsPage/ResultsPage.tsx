@@ -8,7 +8,8 @@ import "./ResultsPage.scss";
 
 const queryClient = new QueryClient();
 const ResultsPage = () => {
-  const [compareArray, setCompareArray] = useState<string[]>([]);
+  const [compareArray, setCompareArray] = useState<any>({});
+
   return (
     <div className="resultsPage">
       <div className="resultsPage--wizard">
@@ -20,7 +21,9 @@ const ResultsPage = () => {
             compareArray={compareArray}
             setCompareArray={setCompareArray}
           ></ResultsList>
-          <ResultsCompare compareArray={compareArray}></ResultsCompare>
+          {Object.keys(compareArray).length > 0 && (
+            <ResultsCompare compareArray={compareArray}></ResultsCompare>
+          )}
         </QueryClientProvider>
       </div>
     </div>

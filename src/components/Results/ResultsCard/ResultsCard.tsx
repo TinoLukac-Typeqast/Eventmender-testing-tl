@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useContext, useState } from "react";
+import { AppContext } from "../../../Context/AppProvider";
 import CheckSvgIcon from "../../UI/CheckSvgIcon/CheckSvgIcon";
 import "./ResultsCard.scss";
 
@@ -14,24 +15,40 @@ const ResultsCard = ({
   compareArray,
 }: IResultsCard) => {
   const [isChecked, setIsChecked] = useState(false);
+  const [{ currency }, dispatch] = useContext(AppContext);
+
   const features = vendor.features.split(";\n");
 
+  const currencyOption = { style: "currency", currency: currency.currency };
+  const priceRange = {
+    minPrice: vendor.price_range_1.toLocalString(),
+  };
+
   const compareHandler = () => {
-    if (compareArray?.includes(vendor.name)) {
+    if (Object.keys(compareArray).includes(vendor.name)) {
       setIsChecked(false);
-      setCompareArray((prevState: string[]) =>
+
+      setCompareArray((prevState: any) => {
+        delete prevState[vendor.name];
+        return { ...prevState };
+      });
+
+      /*  setCompareArray((prevState: string[]) =>
         prevState.filter((val) => val !== vendor.name)
-      );
+      ); */
       return;
     }
 
-    if (compareArray.length === 3 && isChecked === false) {
-      alert("max compare items");
+    if (Object.keys(compareArray).length === 3 && isChecked === false) {
       setIsChecked(false);
       return;
     }
 
-    setCompareArray((prevState: string[]) => [...prevState, vendor.name]);
+    setCompareArray((prevState: any) => {
+      prevState[vendor.name] = vendor;
+      return { ...prevState };
+    });
+    /*     setCompareArray((prevState: string[]) => [...prevState, vendor.name]); */
     setIsChecked(true);
   };
 

@@ -1,1 +1,1 @@
-export const compareState:string[] = [];
+export const compareState:any = {};

@@ -14,7 +14,7 @@ import { compareState } from "../Context/InitialStates/compareState";
 const [reducerCombined, initialStateCombined] = combineReducers({
   appReducer: [appReducer, initState],
   currency: [currencyReducer, currencyState],
-  compareArray: [compareReducer, compareState],
+  compareStateObject: [compareReducer, compareState],
 });
 function App() {
   return (

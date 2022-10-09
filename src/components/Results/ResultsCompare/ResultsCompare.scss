@@ -1,0 +1,31 @@
+.resultsCompare{
+    position: fixed;
+    box-sizing: border-box;
+    bottom: 0;
+    right: 0;
+    height: 100px;
+    padding: 20px;
+    width: calc(100% - 340px);
+    background-color: #e1e1e1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+   &--text{
+        flex: 1;
+        text-align: left;
+        line-height: 25px;
+        box-sizing: border-box;
+        color: #656565;
+
+        p{
+            display: inline-block;
+            margin-left: 50px;
+        }
+   }
+
+   
+   &--hidden{
+        flex: 1;
+   }
+}
