@@ -6,70 +6,72 @@ import StarSvgIcon from "../../UI/StarSvgIcon/StarSvgIcon";
 import "./ResultsCard.scss";
 
 interface IResultsCard {
-	vendor: any;
-	setCompareArray?: any;
-	compareArray?: string[];
+  vendor: any;
+  setCompareArray?: any;
+  compareArray?: string[];
 }
 
 const ResultsCard = ({
-	vendor,
-	setCompareArray,
-	compareArray,
+  vendor,
+  setCompareArray,
+  compareArray,
 }: IResultsCard) => {
-	const [isChecked, setIsChecked] = useState(false);
-	const [{ currency }, dispatch] = useContext(AppContext);
+  const [{ currency, compareStateObject }, dispatch] = useContext(AppContext);
+  const [isChecked, setIsChecked] = useState(
+    Object.keys(compareStateObject).includes(vendor.name) || false
+  );
 
-	const features = vendor.features.split(";\n");
+  const features = vendor.features.split(";\n");
 
-	const currencyOption = { style: "currency", currency: currency.currency };
-	const priceRange = {
-		minPrice: Math.round(
-			vendor.price_range_1 * currency.valueToEuro
-		).toLocaleString(currency.local, currencyOption),
-		maxPrice: Math.round(
-			vendor.price_range_2 * currency.valueToEuro
-		).toLocaleString(currency.local, currencyOption),
-	};
+  const currencyOption = { style: "currency", currency: currency.currency };
+  const priceRange = {
+    minPrice: Math.round(
+      vendor.price_range_1 * currency.valueToEuro
+    ).toLocaleString(currency.local, currencyOption),
+    maxPrice: Math.round(
+      vendor.price_range_2 * currency.valueToEuro
+    ).toLocaleString(currency.local, currencyOption),
+  };
 
-	const compareHandler = () => {
-		if (compareArray) {
-			if (Object.keys(compareArray).includes(vendor.name)) {
-				setIsChecked(false);
+  const compareHandler = () => {
+    if (compareArray) {
+      if (Object.keys(compareArray).includes(vendor.name)) {
+        setIsChecked(false);
 
-				setCompareArray((prevState: any) => {
-					delete prevState[vendor.name];
-					return { ...prevState };
-				});
+        setCompareArray((prevState: any) => {
+          delete prevState[vendor.name];
+          return { ...prevState };
+        });
 
-				/*  setCompareArray((prevState: string[]) =>
+        /*  setCompareArray((prevState: string[]) =>
         prevState.filter((val) => val !== vendor.name)
       ); */
-				return;
-			}
+        return;
+      }
 
-			if (Object.keys(compareArray).length === 3 && isChecked === false) {
-				setIsChecked(false);
-				return;
-			}
+      if (Object.keys(compareArray).length === 3 && isChecked === false) {
+        setIsChecked(false);
+        return;
+      }
 
-			setCompareArray((prevState: any) => {
-				prevState[vendor.name] = vendor;
-				return { ...prevState };
-			});
-			/*     setCompareArray((prevState: string[]) => [...prevState, vendor.name]); */
-			setIsChecked(true);
-		}
-	};
+      setCompareArray((prevState: any) => {
+        prevState[vendor.name] = vendor;
+        return { ...prevState };
+      });
+      /*     setCompareArray((prevState: string[]) => [...prevState, vendor.name]); */
+      setIsChecked(true);
+    }
+  };
 
-	return (
-		<article className="resultsCard" key={vendor.id}>
-			{/* header :: START */}
-			<header className="resultsCard-header">
-				<img
-					className="resultsCard-header--img"
-					src={vendor.logo_urls}
-					alt=""
-				/>
+  return (
+    <article className="resultsCard" key={vendor.id}>
+      {/* header :: START */}
+      <header className="resultsCard-header">
+        <img
+          className="resultsCard-header--img"
+          src={vendor.logo_urls}
+          alt=""
+        />
 
         <div className="resultsCard-header--info">
           <p>{vendor.name}</p>
@@ -132,7 +134,6 @@ const ResultsCard = ({
       {/* footer :: END */}
     </article>
   );
-
 };
 
 export default ResultsCard;

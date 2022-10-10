@@ -42,6 +42,7 @@ const ResultsForm = ({ question, setOpenDropdownIndex }: IResultsForm) => {
       payload: e.target.value,
     };
     dispatch(action);
+    dispatch({ type: "ADD_COMPARE_ARRAY", payload: {} });
   };
 
   useEffect(() => {
