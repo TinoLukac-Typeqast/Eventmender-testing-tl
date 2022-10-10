@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 
 import { AppContext } from "../../../Context/AppProvider";
+import Button from "../../UI/Button/Button";
 import {
   addActionTypeHandler,
   removeActionTypeHandler,
@@ -72,20 +73,20 @@ const WizardForm = ({
       </div>
 
       <div className="wizardform-btnGroup">
-        <button
-          className="wizardform-btnGroup-btn wizardform-btnGroup-btn__skip"
-          onClick={skipQuestionHandler}
+        <Button
+          onClickFunction={skipQuestionHandler}
+          type="submit"
+          customClasses="wizardform-btnGroup-btn wizardform-btnGroup-btn__skip"
         >
           Skip
-        </button>
-
-        <button
+        </Button>
+        <Button
+          onClickFunction={addQuestionHandler}
           type="submit"
-          className="wizardform-btnGroup-btn wizardform-btnGroup-btn__next"
-          onClick={addQuestionHandler}
+          customClasses="wizardform-btnGroup-btn wizardform-btnGroup-btn__next"
         >
           Next
-        </button>
+        </Button>
       </div>
     </form>
   );

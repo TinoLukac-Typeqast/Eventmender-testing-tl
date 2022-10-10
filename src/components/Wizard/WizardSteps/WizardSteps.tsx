@@ -2,6 +2,7 @@ import { useContext } from "react";
 
 import { QuestionsConstants } from "../../../constants/questions.constants";
 import { AppContext } from "../../../Context/AppProvider";
+import CheckSvgIcon from "../../UI/CheckSvgIcon/CheckSvgIcon";
 import "./WizardSteps.scss";
 
 const WizardSteps = ({ stepNumberHandler, questionNumber }: IWizardSteps) => {
@@ -43,30 +44,7 @@ const WizardSteps = ({ stepNumberHandler, questionNumber }: IWizardSteps) => {
               onClick={stepNumberHandler.bind(null, i)}
             >
               <div className="wizardSteps-group--num wizardSteps-checkbox">
-                <svg
-                  width="24px"
-                  height="24px"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                  xmlnsXlink="http://www.w3.org/1999/xlink"
-                >
-                  <title>{"check"}</title>
-                  <desc>{"Created with sketchtool."}</desc>
-                  <g
-                    id="web-app"
-                    stroke="none"
-                    strokeWidth={1}
-                    fill="none"
-                    fillRule="evenodd"
-                  >
-                    <g id="check" fill="#000000">
-                      <polygon
-                        id="Shape"
-                        points="6 10 4 12 10 18 20 8 18 6 10 14"
-                      />
-                    </g>
-                  </g>
-                </svg>
+                <CheckSvgIcon size="24px"></CheckSvgIcon>
               </div>
               <p className="wizardSteps-group--name">{question.name}</p>
             </div>

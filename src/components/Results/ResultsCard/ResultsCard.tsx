@@ -1,6 +1,8 @@
 import { useContext, useState } from "react";
 import { AppContext } from "../../../Context/AppProvider";
+import Button from "../../UI/Button/Button";
 import CheckSvgIcon from "../../UI/CheckSvgIcon/CheckSvgIcon";
+import StarSvgIcon from "../../UI/StarSvgIcon/StarSvgIcon";
 import "./ResultsCard.scss";
 
 interface IResultsCard {
@@ -74,18 +76,7 @@ const ResultsCard = ({
             {vendor.rating !== "0" && (
               <>
                 <p>{vendor.rating}</p>
-                <svg
-                  width="16px"
-                  height="16px"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <polygon
-                    fill="#FFC95E"
-                    fillRule="evenodd"
-                    points="12 16.667 5 22 8 14 2 9.5 9.5 9.5 12 2 14.5 9.5 22 9.5 16 14 19 22"
-                  />
-                </svg>
+                <StarSvgIcon></StarSvgIcon>
                 <p>{`(${vendor.no_of_ratings} ratings)`}</p>
               </>
             )}
@@ -93,7 +84,7 @@ const ResultsCard = ({
         </div>
       </header>
       {/* header :: END */}
-
+      {/* main :: START */}
       <main className="resultsCard-features">
         <h3 className="resultsCard-features--title">Features</h3>
         <div className="resultsCard-features--list">
@@ -102,7 +93,6 @@ const ResultsCard = ({
               return (
                 <div className="resultsCard-features--list-feature" key={i}>
                   <CheckSvgIcon></CheckSvgIcon>
-
                   <p className="resultsCard-features--list-feature-text">
                     {feature}
                   </p>
@@ -128,14 +118,16 @@ const ResultsCard = ({
           Compare
         </label>
       </main>
-
+      {/* main :: END */}
+      {/* footer :: START */}
       <footer className="resultsCard-footer">
-        <button className="resultsCard-footer--btn">More Info</button>
+        <Button>More Info</Button>
         <div className="resultsCard-footer--price">
           <p className="resultsCard-footer--price__text">{`${priceRange.minPrice} - ${priceRange.maxPrice} `}</p>
           <p className="resultsCard-footer--price__estimate">estimated cost</p>
         </div>
       </footer>
+      {/* footer :: END */}
     </article>
   );
 };

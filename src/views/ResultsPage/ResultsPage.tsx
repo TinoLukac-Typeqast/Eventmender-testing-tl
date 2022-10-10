@@ -9,7 +9,7 @@ import "./ResultsPage.scss";
 const queryClient = new QueryClient();
 const ResultsPage = () => {
   const [compareArray, setCompareArray] = useState<any>({});
-
+  console.log(compareArray);
   return (
     <div className="resultsPage">
       <div className="resultsPage--wizard">
