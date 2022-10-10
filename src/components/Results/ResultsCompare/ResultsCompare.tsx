@@ -1,36 +1,37 @@
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { AppContext } from "../../../Context/AppProvider";
 import "./ResultsCompare.scss";
 interface IResultsCompare {
-  compareArray: any;
+	compareArray: any;
 }
 
 const ResultsCompare = ({ compareArray }: IResultsCompare) => {
-  const [{ compareStateObject }, dispatch] = useContext(AppContext);
+	const [{}, dispatch] = useContext(AppContext);
+	const navigate = useNavigate();
 
-  console.log(compareStateObject);
+	const compareArrayContextHandler = () => {
+		dispatch({ type: "ADD_COMPARE_ARRAY", payload: compareArray });
+		navigate("/compare");
+	};
+	return (
+		<div className="resultsCompare">
+			<div className="resultsCompare--text">
+				<p>
+					Compare upto 3 <br /> Event Partners
+				</p>
+			</div>
 
-  const compareArrayContextHandler = () => {
-    dispatch({ type: "ADD_COMPARE_ARRAY", payload: compareArray });
-  };
-  return (
-    <div className="resultsCompare">
-      <div className="resultsCompare--text">
-        <p>
-          Compare upto 3 <br /> Event Partners
-        </p>
-      </div>
-
-      <button
-        className="resultsCard-footer--btn resultsCompare--btn"
-        onClick={compareArrayContextHandler}
-      >
-        Compare
-      </button>
-      <div className="resultsCompare--hidden"></div>
-    </div>
-  );
+			<button
+				className="resultsCard-footer--btn resultsCompare--btn"
+				onClick={compareArrayContextHandler}
+			>
+				Compare
+			</button>
+			<div className="resultsCompare--hidden"></div>
+		</div>
+	);
 };
 
 export default ResultsCompare;
