@@ -1,18 +1,15 @@
-import { useContext, useState } from "react";
-import { QuestionsConstants } from "../../../constants/questions.constants";
-import { AppContext } from "../../../Context/AppProvider";
-import "./ResultsWizard.scss";
-import ResultsWizardDropdown from "./ResultsWizardDropdown/ResultsWizardDropdown";
+import { useState } from "react";
 
-const questions = QuestionsConstants;
+import { QuestionsConstants } from "../../../constants/questions.constants";
+import ResultsWizardDropdown from "./ResultsWizardDropdown/ResultsWizardDropdown";
+import "./ResultsWizard.scss";
 
 const ResultsWizard = () => {
   const [openDropdownIndex, setOpenDropdownIndex] = useState(null);
-  const [contextState, dispatch] = useContext(AppContext);
 
   return (
     <div className="resultsWizard">
-      {questions.map((question, index) => (
+      {QuestionsConstants.map((question, index) => (
         <ResultsWizardDropdown
           key={index}
           setOpenDropdownIndex={setOpenDropdownIndex}

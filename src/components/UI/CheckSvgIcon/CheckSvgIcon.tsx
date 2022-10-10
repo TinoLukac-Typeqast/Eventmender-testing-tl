@@ -7,26 +7,17 @@ interface ICheckSvgIcon {
 const CheckSvgIcon = ({ size = "24px" }: ICheckSvgIcon) => {
   return (
     <svg
-      className="check-default"
       width={size}
       height={size}
-      viewBox="0 0 24 24"
+      viewBox="0 0 16 16"
+      fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      xmlnsXlink="http://www.w3.org/1999/xlink"
     >
-      <title>{"check"}</title>
-      <desc>{"Created with sketchtool."}</desc>
-      <g
-        id="web-app"
-        stroke="none"
-        strokeWidth={1}
-        fill="none"
-        fillRule="evenodd"
-      >
-        <g id="check" fill="#000000">
-          <polygon id="Shape" points="6 10 4 12 10 18 20 8 18 6 10 14" />
-        </g>
-      </g>
+      <circle cx={8} cy={8} r={8} fill="#6FE6B6" />
+      <path
+        d="M4.10285 9.03964L5.62917 10.6586C5.83529 10.8772 6.11481 11 6.40626 11C6.69771 11 6.97723 10.8772 7.18334 10.6586L11.8972 5.65861C11.9639 5.58531 12.0008 5.48714 12 5.38525C11.9992 5.28335 11.9606 5.18588 11.8927 5.11383C11.8248 5.04177 11.7329 5.0009 11.6368 5.00001C11.5407 4.99913 11.4482 5.0383 11.3791 5.10909L6.66529 10.1091C6.59658 10.182 6.50341 10.2229 6.40626 10.2229C6.30911 10.2229 6.21594 10.182 6.14723 10.1091L4.6209 8.49012C4.5518 8.41933 4.45926 8.38016 4.36319 8.38105C4.26713 8.38193 4.17524 8.4228 4.10731 8.49486C4.03938 8.56691 4.00085 8.66438 4.00001 8.76628C3.99918 8.86818 4.03611 8.96634 4.10285 9.03964Z"
+        fill="black"
+      />
     </svg>
   );
 };
