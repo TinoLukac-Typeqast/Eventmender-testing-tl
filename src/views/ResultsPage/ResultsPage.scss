@@ -1,0 +1,38 @@
+
+.resultsPage{
+    display: flex;
+    z-index: 0;
+    justify-content: center;
+    background-color: #fafafa;
+    position: relative;
+   
+
+    &--wizard{
+        box-sizing: border-box;
+
+        flex: 340px;
+        display: flex;
+        background-color: #F3F3F3;
+        justify-content: center;
+    }
+
+    &--list{
+        box-sizing: border-box;
+        flex: calc(100% - 340px);
+        
+        
+    }
+}
+
+
+
+/* @media (min-width: 2560px) {
+    .resultsPage{
+        &-steps{
+            flex: 10%;
+            
+        }
+    }
+  } */
+
+ 

@@ -1,0 +1,10 @@
+.dropdown-arrow{
+    transition: transform 0.2s ease-in;
+}
+
+.dropdown-arrow__open{
+    
+    transform: rotate(180deg);
+}
+
+

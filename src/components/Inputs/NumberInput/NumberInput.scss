@@ -3,14 +3,14 @@
     align-items: center;
     gap: 20px;
     width: 200px;
-    height: 50px;
+    height: 35px;
    cursor: pointer;
 
     &--img{
        
-        height: 40px;
-        width: 70px;
-        object-fit: contain;
+        height: 35px;
+        width: 60px;
+        object-fit: cover;
     }
 
     &--symbol{
@@ -22,6 +22,8 @@
 .dropdown{
     position: absolute;
     top: 100%;
+    height: 200px;
+    overflow: scroll;
     background-color: #F3F3F3;
     padding: 10px;
     border-radius: 8px;

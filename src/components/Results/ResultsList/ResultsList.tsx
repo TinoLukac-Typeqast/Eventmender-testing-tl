@@ -1,16 +1,20 @@
 import axios from "axios";
-import { useCallback, useContext, useEffect, useState } from "react";
-import { QuestionsConstants } from "../../../constants/questions.constants";
+import { useContext } from "react";
 import { AppContext } from "../../../Context/AppProvider";
-import { QueryClient, QueryClientProvider, useQuery } from "react-query";
+import { useQuery } from "react-query";
 import "./ResultsList.scss";
-import { isConstructorDeclaration } from "typescript";
+import ResultsCard from "../ResultsCard/ResultsCard";
 
-const ResultsList = () => {
-  /*   const [resultsList, setResultsList] = useState([]);
-   */ const [contextState, dispatch] = useContext(AppContext);
+interface IResultsList {
+  compareArray: any;
+  setCompareArray: any;
+}
+
+const ResultsList = ({ compareArray, setCompareArray }: IResultsList) => {
+  const [contextState, dispatch] = useContext(AppContext);
 
   const fetchData = async () => {
+    console.log("fetchin");
     const currencyExchange = Math.round(
       +contextState.appReducer.budget / contextState.currency.valueToEuro
     );
@@ -30,20 +34,17 @@ const ResultsList = () => {
         experience: contextState.appReducer.experience,
       }
     );
-    /*  console.log(res.data.platforms); */
+    console.log(res.data.platforms);
     return res.data.platforms;
   };
 
-  const { data, status, refetch } = useQuery(
-    ["results", contextState],
-    fetchData
+  const { data, status } = useQuery(
+    ["results", contextState.appReducer],
+    fetchData,
+    {
+      refetchOnWindowFocus: false,
+    }
   );
-
-  /* useEffect(() => {
-    refetch();
-  }, [contextState]); */
-
-  console.log(data);
 
   if (status === "loading") {
     return <span className="loader"></span>;
@@ -53,9 +54,23 @@ const ResultsList = () => {
     return <div>Error 404</div>;
   }
 
+  if (!data) {
+    return <div>No Results Found!</div>;
+  }
+
   return (
-    <div>
-      <h2>Found {data?.length || 0} results</h2>
+    <div className="resultsList">
+      <h2 className="resultsList-title">{data?.length || 0} matches found</h2>
+      <div className="resultsList-items">
+        {data.map((item: any, i: number) => (
+          <ResultsCard
+            key={i}
+            vendor={item}
+            setCompareArray={setCompareArray}
+            compareArray={compareArray}
+          ></ResultsCard>
+        ))}
+      </div>
     </div>
   );
 };
